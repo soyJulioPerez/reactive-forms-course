@@ -1,0 +1,16 @@
+.dropdown-menu-dark {
+  background-color:  lightgray;
+}
+.dropdown-item:hover {
+  background-color: #343a40;
+  color: lightgray;
+}
+.dropdown-item {
+  background-color:  lightgray;
+  color: black;
+}
+.active {
+  background-color: black;
+  color: lightgray;
+  font-weight: bold;
+}
