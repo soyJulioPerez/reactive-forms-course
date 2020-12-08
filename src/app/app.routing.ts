@@ -9,6 +9,9 @@ const routes: Routes = [
   { path: 'tdf-customers',
     loadChildren: () => import('./tdf-customers/tdf-customers.module').then(m => m.TdfCustomersModule)
   },
+  { path: 'rf-customers',
+    loadChildren: () => import('./rf-customers/rf-customers.module').then(m => m.RfCustomersModule)
+  },
   { path: '**', component: NotFoundComponent }
 ];
 
