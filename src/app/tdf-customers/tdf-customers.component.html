@@ -1,1 +1,162 @@
-<p>tdf-customers works!</p>
+<div class="card">
+  <div class="card-header">
+    Customers
+  </div>
+
+  <div class="card-body row">
+    <div class="col-8 border-right">
+      <form novalidate (ngSubmit)="save(customerForm)" #customerForm="ngForm">
+
+        <div class="form-group row mb-2"> <!-- First name -->
+          <label class="col-md-3 col-form-label" for="firstName">First name</label>
+          <div class="col-md-9">
+            <input class="form-control" type="text" placeholder="First name (required)"
+              required minlength="3"
+              [(ngModel)]="customer.firstName" name="firstName" #firstName="ngModel"
+              [ngClass]="{'is-invalid': (firstName.touched || firstName.dirty) && !firstName.valid}">
+            <span class="invalid-feedback">
+              <span *ngIf="firstName.errors?.required">
+                Please enter your first name
+              </span>
+              <span *ngIf="firstName.errors?.minlength">
+                Must be longer than 3 characters
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row mb-2"> <!-- Last name -->
+          <label class="col-md-3 col-form-label" for="lastName"></label>
+          <div class="col-md-9">
+            <input class="form-control" type="text" placeholder="Last name (required)"
+              required maxlength="50"
+              [(ngModel)]="customer.lastname" name="lastName" #lastName="ngModel"
+              [ngClass]="{'is-invalid': (lastName.touched || lastName.dirty) && lastName.invalid}">
+            <span class="invalid-feedback">
+              <span *ngIf="lastName.errors?.required">
+                Please enter your last name
+              </span>
+              <span *ngIf="lastName.errors?.maxlength">
+                Must be less than 50 characters
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row mb-2"> <!-- Email -->
+          <label class="col-md-3 col-form-label" for="">Email</label>
+          <div class="col-md-9">
+            <input class="form-control" type="email" placeholder="Email (required)"
+            required email
+            [(ngModel)]="customer.email" name="email" #email="ngModel"
+            [ngClass]="{'is-invalid': (email.touched || email.dirty) && email.invalid}">
+          <span class="invalid-feedback">
+            <span *ngIf="email.errors?.required">
+              Please enter your email address
+            </span>
+            <span *ngIf="email.errors?.email">
+              Please enter a valid email address
+            </span>
+          </span>
+          </div>
+        </div>
+
+        <div class="form-group row mb-2"> <!-- Send me yout catalog -->
+          <div class="col-md-9 offset-3">
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="checkbox" class="form-check-input"
+                  [(ngModel)]="customer.sendCatalog" name="sendCatalog">
+                Send me your catalog
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="customer.sendCatalog"> <!-- Address -->
+
+          <div class="form-group row mb-2"> <!-- Address type -->
+            <label class="col-md-3 form-col-label pt-0">Address Type</label>
+            <div class="col-md-9">
+              <div class="form-check form-check-inline">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" value="home"
+                    [(ngModel)]="customer.addressType" name="addressType">
+                  Home
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" value="work"
+                    [(ngModel)]="customer.addressType" name="addressType">
+                  Work
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" value="other"
+                    [(ngModel)]="customer.addressType" name="addressType">
+                  Other
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row mb-2"> <!-- Street 1 -->
+            <label class="col-md-3 col-form-label">Street Address 1</label>
+            <div class="col-md-9">
+              <input class="form-control" type="text" placeholder="Street Address"
+                [(ngModel)]="customer.street1" name="street1">
+            </div>
+          </div>
+
+          <div class="form-group row mb-2"> <!-- Street 2 -->
+            <label class="col-md-3 col-form-label">Street Address 2</label>
+            <div class="col-md-9">
+              <input class="form-control" type="text" placeholder="Street Address (second line)"
+                [(ngModel)]="customer.street2" name="street2">
+            </div>
+          </div>
+
+          <div class="form-group row mb-2"> <!-- City, State, Zip code -->
+            <label class="col-md-3 col-form-label">City, State, Zip Code</label>
+
+            <div class="col-md-3">
+              <input class="form-control" type="text" placeholder="city"
+                [(ngModel)]="customer.city" name="city">
+            </div>
+            <div class="col-md-3">
+              <select class="form-control"
+                [(ngModel)]="customer.state" name="state">
+                <option value="" disabled selected hidden>Select a State...</option>
+                <option value="AL">Alabama</option>
+                <option value="AK">Alaska</option>
+                <option value="AZ">Arizona</option>
+                <option value="AR">Arkansas</option>
+                <option value="CA">California</option>
+                <option value="CO">Colorado</option>
+                <option value="WI">Wisconsin</option>
+                <option value="WY">Wyoming</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <input class="form-control" type="number" placeholder="Zip Code"
+                [(ngModel)]="customer.zip" name="zip">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row mt-4">
+          <div class="offset-md-4 col-md-4">
+            <button class="btn btn-block btn-primary" type="submit"
+              [title]="customerForm.valid ? 'Save your entered data' : 'Disabled until de form data is valid'"
+              [disabled]="!customerForm.valid">
+              Save
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
