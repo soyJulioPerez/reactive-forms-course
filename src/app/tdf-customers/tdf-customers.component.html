@@ -4,7 +4,7 @@
   </div>
 
   <div class="card-body row">
-    <div class="col-8 border-right">
+    <div class="col-8 border-right"> <!-- Form -->
       <form novalidate (ngSubmit)="save(customerForm)" #customerForm="ngForm">
 
         <div class="form-group row mb-2"> <!-- First name -->
@@ -157,6 +157,13 @@
           </div>
         </div>
       </form>
+    </div>
+
+    <div class="col-4"> <!-- Log Form properties -->
+      <p>Dirty: {{customerForm.dirty}}</p>
+      <p>Touched: {{customerForm.touched}}</p>
+      <p>Valid: {{customerForm.valid}}</p>
+      <pre>Value: {{customerForm.value | json}}</pre>
     </div>
   </div>
 </div>

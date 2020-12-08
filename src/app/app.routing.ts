@@ -3,12 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './layout/home/home.component';
 import { NotFoundComponent } from './layout/not-found/not-found.component';
 
-import { CustomerComponent } from './customers/customer.component';
-
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home'},
   { path: 'home', component: HomeComponent },
-  { path: 'original', component: CustomerComponent },
   { path: 'tdf-customers',
     loadChildren: () => import('./tdf-customers/tdf-customers.module').then(m => m.TdfCustomersModule)
   },
