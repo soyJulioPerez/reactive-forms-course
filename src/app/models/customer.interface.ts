@@ -10,3 +10,17 @@ export interface CustomerI {
   state?: string;
   zip?: string;
 }
+
+export const emptyCustomer = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  sendCatalog: true,
+  addressType: 'Home',
+  street1: '',
+  street2: '',
+  city: '',
+  state: '',
+  zip: '',
+};
+

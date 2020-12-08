@@ -160,10 +160,39 @@
     </div>
 
     <div class="col-4"> <!-- Log Form properties -->
-      <p>Dirty: {{customerForm.dirty}}</p>
-      <p>Touched: {{customerForm.touched}}</p>
-      <p>Valid: {{customerForm.valid}}</p>
-      <pre>Value: {{customerForm.value | json}}</pre>
+      <div class="row">
+        <div class="col-3 px-2">
+          <button class="btn btn-block btn-info my-2" (click)="setMockData()">
+            Set
+          </button>
+        </div>
+        <div class="col-3 px-2">
+          <button class="btn btn-block btn-info my-2" (click)="patchMockData()">
+            Patch
+          </button>
+        </div>
+        <div class="col-3 px-2">
+          <button class="btn btn-block btn-info my-2"  (click)="clearForm()">
+            Clear
+          </button>
+        </div>
+        <div class="col-3 px-2">
+          <button class="btn btn-block btn-info my-2"  (click)="initForm()">
+            Init
+          </button>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <p>Dirty: {{customerForm.dirty}}</p>
+          <p>Touched: {{customerForm.touched}}</p>
+          <p>Valid: {{customerForm.valid}}</p>
+          <pre>Value: {{customerForm.value | json}}</pre>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

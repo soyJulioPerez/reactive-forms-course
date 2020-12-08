@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
-import { CustomerI } from '../models/customer.interface';
+import { CustomerI, emptyCustomer } from '../models/customer.interface';
 
 @Component({
   selector: 'app-rf-customers',
@@ -25,6 +25,39 @@ export class RfCustomersComponent implements OnInit {
       city: '',
       state: '',
       zip: '',
+    });
+  }
+
+  clearForm() {
+    this.customerForm.setValue(emptyCustomer);
+  }
+
+  initForm() {
+    this.clearForm();
+    this.customerForm.markAsPristine();
+    this.customerForm.markAsUntouched();
+  }
+
+  setMockData() {
+    const mockCustomer = {
+      firstName: 'Larry',
+      lastName: 'Jimenez',
+      email: 'larry.jimenez@mail.com',
+      sendCatalog: true,
+      addressType: 'Work',
+      street1: 'Av Reconquista 850',
+      street2: 'Cerca de Retiro',
+      city: 'CABA',
+      state: 'Buenos Aires',
+      zip: '1064',
+    };
+    this.customerForm.setValue(mockCustomer);
+  }
+
+  patchMockData() {
+    this.customerForm.patchValue({
+      firstName: 'Florencio',
+      lastName: 'Arriechi'
     });
   }
 
