@@ -13,7 +13,7 @@ export class TdfCustomersComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.customer.addressType = 'home';
+    this.customer.addressType = 'Home';
     this.customer.state = '';
   }
 

@@ -12,6 +12,9 @@ const routes: Routes = [
   { path: 'rf-customers',
     loadChildren: () => import('./rf-customers/rf-customers.module').then(m => m.RfCustomersModule)
   },
+  { path: 'rf-validators',
+    loadChildren: () => import('./rf-validators/rf-validators.module').then(m => m.RfValidatorsModule)
+  },
   { path: '**', component: NotFoundComponent }
 ];
 

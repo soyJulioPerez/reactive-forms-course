@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-header">
-    Customers [Basic Reactive Form]
+    Customers [Reactive Form with validators]
   </div>
 
   <div class="card-body row">
@@ -11,7 +11,6 @@
           <label class="col-md-3 col-form-label" for="firstName">First name</label>
           <div class="col-md-9">
             <input class="form-control" type="text" placeholder="First name (required)"
-              required minlength="3"
               formControlName="firstName"
               [ngClass]="{'is-invalid': (customerForm.get('firstName').touched || customerForm.get('firstName').dirty) && !customerForm.get('firstName').valid}">
             <span class="invalid-feedback">
@@ -29,7 +28,6 @@
           <label class="col-md-3 col-form-label" for="lastName"></label>
           <div class="col-md-9">
             <input class="form-control" type="text" placeholder="Last name (required)"
-              required maxlength="50"
               formControlName="lastName"
               [ngClass]="{'is-invalid': (customerForm.get('lastName').touched || customerForm.get('lastName').dirty) && customerForm.get('lastName').invalid}">
             <span class="invalid-feedback">
