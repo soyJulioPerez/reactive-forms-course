@@ -17,8 +17,10 @@ export class RfValidatorsComponent implements OnInit {
     this.customerForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required, Validators.maxLength(50)]],
-      email: ['', Validators.required, Validators.email],
-      sendCatalog: true,
+      email: ['', [Validators.required, Validators.email]],
+      phone: '',
+      notification: 'Email',
+      sendCatalog: false,
       addressType: 'Home',
       street1: '',
       street2: '',
@@ -29,6 +31,7 @@ export class RfValidatorsComponent implements OnInit {
   }
 
   clearForm() {
+    this.setNotification('Email');
     this.customerForm.setValue(emptyCustomer);
   }
 
@@ -43,14 +46,17 @@ export class RfValidatorsComponent implements OnInit {
       firstName: 'Larry',
       lastName: 'Jimenez',
       email: 'larry.jimenez@mail.com',
+      phone: '32681231',
+      notification: 'Text',
       sendCatalog: true,
       addressType: 'Work',
       street1: 'Av Reconquista 850',
       street2: 'Cerca de Retiro',
       city: 'CABA',
-      state: 'Buenos Aires',
+      state: 'CA',
       zip: '1064',
     };
+    this.setNotification('Text');
     this.customerForm.setValue(mockCustomer);
   }
 
@@ -65,6 +71,16 @@ export class RfValidatorsComponent implements OnInit {
     const record = this.customerForm.value as CustomerI;
     console.log(this.customerForm);
     console.log(record);
+  }
+
+  setNotification(notifyBy: 'Email' | 'Text') {
+    const phoneControl = this.customerForm.get('phone');
+    if (notifyBy === 'Text') {
+      phoneControl.setValidators(Validators.required);
+    } else {
+      phoneControl.clearValidators();
+    }
+    phoneControl.updateValueAndValidity();
   }
 
 }
