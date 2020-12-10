@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { CustomerI, emptyCustomer } from './models/customer.interface';
+import { rangeValidator } from './validators/range.validator';
 
 @Component({
   selector: 'app-rf-validators',
@@ -20,6 +21,7 @@ export class RfValidatorsComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phone: '',
       notification: 'Email',
+      rating: [null, rangeValidator],
       sendCatalog: false,
       addressType: 'Home',
       street1: '',
@@ -42,12 +44,13 @@ export class RfValidatorsComponent implements OnInit {
   }
 
   setMockData() {
-    const mockCustomer = {
+    const mockCustomer: CustomerI = {
       firstName: 'Larry',
       lastName: 'Jimenez',
       email: 'larry.jimenez@mail.com',
       phone: '32681231',
       notification: 'Text',
+      rating: 5,
       sendCatalog: true,
       addressType: 'Work',
       street1: 'Av Reconquista 850',

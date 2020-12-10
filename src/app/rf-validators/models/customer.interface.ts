@@ -1,10 +1,11 @@
 export interface CustomerI {
   firstName: string;
-  lastname: string;
+  lastName: string;
   email: string;
   phone: string;
   notification: 'Email' | 'Text';
   sendCatalog: boolean;
+  rating: number;
   addressType?: 'Home' | 'Work' | 'Other';
   street1?: string;
   street2?: string;
@@ -20,6 +21,7 @@ export const emptyCustomer = {
   phone: '',
   notification: 'Email',
   sendCatalog: true,
+  rating: null,
   addressType: 'Home',
   street1: '',
   street2: '',
