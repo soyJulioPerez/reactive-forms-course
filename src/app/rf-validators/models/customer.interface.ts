@@ -1,7 +1,10 @@
 export interface CustomerI {
   firstName: string;
   lastName: string;
-  email: string;
+  emailGroup: {
+    email: string;
+    confirmEmail: string;
+  };
   phone: string;
   notification: 'Email' | 'Text';
   sendCatalog: boolean;
@@ -17,7 +20,10 @@ export interface CustomerI {
 export const emptyCustomer = {
   firstName: '',
   lastName: '',
-  email: '',
+  emailGroup: {
+    email: '',
+    confirmEmail: '',
+  },
   phone: '',
   notification: 'Email',
   sendCatalog: true,
