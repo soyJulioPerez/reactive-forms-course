@@ -15,6 +15,9 @@ const routes: Routes = [
   { path: 'rf-validators',
     loadChildren: () => import('./rf-validators/rf-validators.module').then(m => m.RfValidatorsModule)
   },
+  { path: 'rf-value-changes',
+    loadChildren: () => import('./rf-changes/rf-changes.module').then(m => m.RfChangesModule)
+  },
   { path: '**', component: NotFoundComponent }
 ];
 
