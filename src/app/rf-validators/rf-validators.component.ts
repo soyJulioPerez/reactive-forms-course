@@ -21,7 +21,7 @@ export class RfValidatorsComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phone: '',
       notification: 'Email',
-      rating: [null, rangeValidator],
+      rating: [null, rangeValidator(1, 5)],
       sendCatalog: false,
       addressType: 'Home',
       street1: '',
