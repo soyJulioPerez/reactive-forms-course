@@ -34,6 +34,10 @@ export class RfChangesComponent implements OnInit {
       state: '',
       zip: '',
     });
+
+    this.customerForm.get('notification').valueChanges.subscribe(
+      value => this.setNotification(value)
+    )
   }
 
   clearForm() {
