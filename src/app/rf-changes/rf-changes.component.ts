@@ -5,6 +5,8 @@ import { CustomerI, emptyCustomer } from './models/customer.interface';
 import { compareValidator } from './validators/compare.validator';
 import { rangeValidator } from './validators/range.validator';
 
+import { debounceTime } from 'rxjs/operators';
+
 @Component({
   selector: 'app-rf-changes',
   templateUrl: './rf-changes.component.html',
@@ -42,9 +44,11 @@ export class RfChangesComponent implements OnInit {
 
     this.customerForm.get('notification').valueChanges.subscribe(
       value => this.setNotification(value)
-    )
+    );
     const emailControl = this.customerForm.get('emailGroup.email');
-    emailControl.valueChanges.subscribe(
+    emailControl.valueChanges.pipe(
+      debounceTime(1000)
+    ).subscribe(
       value => this.setMessage(emailControl)
     );
   }

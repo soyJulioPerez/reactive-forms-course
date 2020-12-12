@@ -60,9 +60,17 @@
             <div class="col-md-9">
               <input class="form-control" type="email" placeholder="Confirm Email (required)"
               formControlName="confirmEmail"
-              [ngClass]="{'is-invalid': emailMessage }">
+              [ngClass]="{'is-invalid':
+                          customerForm.get('emailGroup').errors ||
+                          ( (customerForm.get('emailGroup.confirmEmail').touched || customerForm.get('emailGroup.confirmEmail').dirty)
+                          && customerForm.get('emailGroup.confirmEmail').invalid) }">
             <span class="invalid-feedback">
-              {{ emailMessage }}
+              <span *ngIf="customerForm.get('emailGroup.confirmEmail').errors?.required">
+                Please confirm your email address
+              </span>
+              <span *ngIf="customerForm.get('emailGroup').errors?.compare">
+                The confirmation does not match email address
+              </span>
             </span>
             </div>
           </div>
