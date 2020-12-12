@@ -48,17 +48,9 @@
               <input class="form-control" type="email" placeholder="Confirm email (required)"
               required email
               formControlName="email"
-              [ngClass]="{'is-invalid':
-                          customerForm.get('emailGroup').errors ||
-                          ((customerForm.get('emailGroup.email').touched || customerForm.get('emailGroup.email').dirty)
-                          && customerForm.get('emailGroup.email').invalid)}">
+              [ngClass]="{'is-invalid':emailMessage}">
             <span class="invalid-feedback">
-              <span *ngIf="customerForm.get('emailGroup.email').errors?.required">
-                Please enter your email address
-              </span>
-              <span *ngIf="customerForm.get('emailGroup.email').errors?.email">
-                Please enter a valid email address
-              </span>
+              {{ emailMessage }}
             </span>
             </div>
           </div>
@@ -68,17 +60,9 @@
             <div class="col-md-9">
               <input class="form-control" type="email" placeholder="Confirm Email (required)"
               formControlName="confirmEmail"
-              [ngClass]="{'is-invalid':
-                          customerForm.get('emailGroup').errors ||
-                          ( (customerForm.get('emailGroup.confirmEmail').touched || customerForm.get('emailGroup.confirmEmail').dirty)
-                          && customerForm.get('emailGroup.confirmEmail').invalid) }">
+              [ngClass]="{'is-invalid': emailMessage }">
             <span class="invalid-feedback">
-              <span *ngIf="customerForm.get('emailGroup.confirmEmail').errors?.required">
-                Please confirm your email address
-              </span>
-              <span *ngIf="customerForm.get('emailGroup').errors?.compare">
-                The confirmation does not match email address
-              </span>
+              {{ emailMessage }}
             </span>
             </div>
           </div>

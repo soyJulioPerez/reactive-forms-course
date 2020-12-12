@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 import { CustomerI, emptyCustomer } from './models/customer.interface';
 import { compareValidator } from './validators/compare.validator';
@@ -12,6 +12,11 @@ import { rangeValidator } from './validators/range.validator';
 })
 export class RfChangesComponent implements OnInit {
   customerForm: FormGroup;
+  emailMessage: string;
+  private validationMessages = {
+    required: 'Please enter your email address.',
+    email: 'Please enter a valid email address.'
+  };
 
   constructor(private fb: FormBuilder) { }
 
@@ -38,6 +43,10 @@ export class RfChangesComponent implements OnInit {
     this.customerForm.get('notification').valueChanges.subscribe(
       value => this.setNotification(value)
     )
+    const emailControl = this.customerForm.get('emailGroup.email');
+    emailControl.valueChanges.subscribe(
+      value => this.setMessage(emailControl)
+    );
   }
 
   clearForm() {
@@ -85,6 +94,14 @@ export class RfChangesComponent implements OnInit {
     const record = this.customerForm.value as CustomerI;
     console.log(this.customerForm);
     console.log(record);
+  }
+
+  setMessage(c: AbstractControl): void {
+    this.emailMessage = '';
+    if ((c.touched || c.dirty) && c.errors) {
+      this.emailMessage = Object.keys(c.errors).map(
+        key => this.validationMessages[key]).join(' ');
+    }
   }
 
   setNotification(notifyBy: 'Email' | 'Text') {
