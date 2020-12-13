@@ -18,6 +18,9 @@ const routes: Routes = [
   { path: 'rf-value-changes',
     loadChildren: () => import('./rf-changes/rf-changes.module').then(m => m.RfChangesModule)
   },
+  { path: 'rf-array',
+    loadChildren: () => import('./rf-array/rf-array.module').then(m => m.RfArrayModule)
+  },
   { path: '**', component: NotFoundComponent }
 ];
 
