@@ -1,1 +1,266 @@
-<p>rf-array works!</p>
+<div class="card">
+  <div class="card-header">
+    Customers [Form Array]
+  </div>
+
+  <div class="card-body row">
+    <div class="col-8 border-right"> <!-- Form -->
+      <form novalidate (ngSubmit)="save()" [formGroup]="customerForm">
+
+        <div class="form-group row mb-2"> <!-- First name -->
+          <label class="col-md-3 col-form-label" for="firstName">First name</label>
+          <div class="col-md-9">
+            <input class="form-control" type="text" placeholder="First name (required)"
+              formControlName="firstName"
+              [ngClass]="{'is-invalid': (customerForm.get('firstName').touched || customerForm.get('firstName').dirty) && !customerForm.get('firstName').valid}">
+            <span class="invalid-feedback">
+              <span *ngIf="customerForm.get('firstName').errors?.required">
+                Please enter your first name
+              </span>
+              <span *ngIf="customerForm.get('firstName').errors?.minlength">
+                Must be longer than 3 characters
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row mb-2"> <!-- Last name -->
+          <label class="col-md-3 col-form-label" for="lastName">Last name</label>
+          <div class="col-md-9">
+            <input class="form-control" type="text" placeholder="Last name (required)"
+              formControlName="lastName"
+              [ngClass]="{'is-invalid': (customerForm.get('lastName').touched || customerForm.get('lastName').dirty) && customerForm.get('lastName').invalid}">
+            <span class="invalid-feedback">
+              <span *ngIf="customerForm.get('lastName').errors?.required">
+                Please enter your last name
+              </span>
+              <span *ngIf="customerForm.get('lastName').errors?.maxlength">
+                Must be less than 50 characters
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div formGroupName="emailGroup"> <!-- Email Form Group -->
+          <div class="form-group row mb-2"> <!-- Email -->
+            <label class="col-md-3 col-form-label" for="">Email</label>
+            <div class="col-md-9">
+              <input class="form-control" type="email" placeholder="Confirm email (required)"
+              required email
+              formControlName="email"
+              [ngClass]="{'is-invalid':emailMessage}">
+            <span class="invalid-feedback">
+              {{ emailMessage }}
+            </span>
+            </div>
+          </div>
+
+          <div class="form-group row mb-2"> <!-- Confirm Email -->
+            <label class="col-md-3 col-form-label" for="">Confirm Email</label>
+            <div class="col-md-9">
+              <input class="form-control" type="email" placeholder="Confirm Email (required)"
+              formControlName="confirmEmail"
+              [ngClass]="{'is-invalid':
+                          customerForm.get('emailGroup').errors ||
+                          ( (customerForm.get('emailGroup.confirmEmail').touched || customerForm.get('emailGroup.confirmEmail').dirty)
+                          && customerForm.get('emailGroup.confirmEmail').invalid) }">
+            <span class="invalid-feedback">
+              <span *ngIf="customerForm.get('emailGroup.confirmEmail').errors?.required">
+                Please confirm your email address
+              </span>
+              <span *ngIf="customerForm.get('emailGroup').errors?.compare">
+                The confirmation does not match email address
+              </span>
+            </span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form-group row mb-2"> <!-- Phone -->
+          <label class="col-md-3 col-form-label">Phone</label>
+          <div class="col-md-9">
+            <input class="form-control"
+              type="tel" placeholder="phone"
+              formControlName="phone"
+              [ngClass]="{'is-invalid': !customerForm.get('phone').valid}"/>
+            <span class="invalid-feedback">
+              <span *ngIf="customerForm.get('phone').errors?.required">
+                Please enter your phone number
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row mb-2"> <!-- Send Notification -->
+          <label class="col-md-3 col-form-label">Send Notifications</label>
+          <div class="col-md-9">
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input"
+                  value="Email"
+                  formControlName="notification">
+                Email
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input"
+                  value="Text"
+                  formControlName="notification">
+                Text
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row mb-2"> <!-- Rating -->
+          <label class="col-md-3 col-form-label">Rating</label>
+          <div class="col-md-9">
+            <input class="form-control" type="number"
+              formControlName="rating"
+              [ngClass]="{'is-invalid': !customerForm.get('rating').valid}"/>
+            <span class="invalid-feedback">
+              <span *ngIf="customerForm.get('rating').errors?.range">
+                Please rate your expirience from 1 to 5
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row mb-2"> <!-- Send me yout catalog -->
+          <div class="col-md-9 offset-3">
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="checkbox" class="form-check-input"
+                formControlName="sendCatalog">
+                Send me your catalog
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="customerForm.get('sendCatalog').value"> <!-- Address -->
+
+          <div class="form-group row mb-2"> <!-- Address type -->
+            <label class="col-md-3 form-col-label pt-0">Address Type</label>
+            <div class="col-md-9">
+              <div class="form-check form-check-inline">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" value="Home"
+                  formControlName="addressType">
+                  Home
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" value="Work"
+                  formControlName="addressType">
+                  Work
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" value="Other"
+                  formControlName="addressType">
+                  Other
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row mb-2"> <!-- Street 1 -->
+            <label class="col-md-3 col-form-label">Street Address 1</label>
+            <div class="col-md-9">
+              <input class="form-control" type="text" placeholder="Street Address"
+              formControlName="street1">
+            </div>
+          </div>
+
+          <div class="form-group row mb-2"> <!-- Street 2 -->
+            <label class="col-md-3 col-form-label">Street Address 2</label>
+            <div class="col-md-9">
+              <input class="form-control" type="text" placeholder="Street Address (second line)"
+              formControlName="street2">
+            </div>
+          </div>
+
+          <div class="form-group row mb-2"> <!-- City, State, Zip code -->
+            <label class="col-md-3 col-form-label">City, State, Zip Code</label>
+
+            <div class="col-md-3">
+              <input class="form-control" type="text" placeholder="city"
+              formControlName="city">
+            </div>
+            <div class="col-md-3">
+              <select class="form-control"
+              formControlName="state">
+                <option value="" disabled selected hidden>Select a State...</option>
+                <option value="AL">Alabama</option>
+                <option value="AK">Alaska</option>
+                <option value="AZ">Arizona</option>
+                <option value="AR">Arkansas</option>
+                <option value="CA">California</option>
+                <option value="CO">Colorado</option>
+                <option value="WI">Wisconsin</option>
+                <option value="WY">Wyoming</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <input class="form-control" type="number" placeholder="Zip Code"
+              formControlName="zip">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row mt-4">
+          <div class="offset-md-4 col-md-4">
+            <button class="btn btn-block btn-primary" type="submit"
+              [title]="customerForm.valid ? 'Save your entered data' : 'Disabled until de form data is valid'"
+              [disabled]="!customerForm.valid">
+              Save
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-4"> <!-- Log Form properties -->
+      <div class="row">
+        <div class="col-3 px-2">
+          <button class="btn btn-block btn-info my-2" (click)="setMockData()">
+            Set
+          </button>
+        </div>
+        <div class="col-3 px-2">
+          <button class="btn btn-block btn-info my-2" (click)="patchMockData()">
+            Patch
+          </button>
+        </div>
+        <div class="col-3 px-2">
+          <button class="btn btn-block btn-info my-2"  (click)="clearForm()">
+            Clear
+          </button>
+        </div>
+        <div class="col-3 px-2">
+          <button class="btn btn-block btn-info my-2"  (click)="initForm()">
+            Init
+          </button>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <p>Dirty: {{customerForm.dirty}}</p>
+          <p>Touched: {{customerForm.touched}}</p>
+          <p>Valid: {{customerForm.valid}}</p>
+          <!-- <pre>Errors: {{customerForm.get('emailGroup').errors | json}}</pre> -->
+          <pre>Value: {{customerForm.value | json}}</pre>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
