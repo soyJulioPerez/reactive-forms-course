@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray } from '@angular/forms';
 
 import { CustomerI, emptyCustomer } from './models/customer.interface';
 import { compareValidator } from './validators/compare.validator';
@@ -20,6 +20,10 @@ export class RfArrayComponent implements OnInit {
     email: 'Please enter a valid email address.'
   };
 
+  get addresses(): FormArray {
+    return this.customerForm.get('addresses') as FormArray;
+  }
+
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
@@ -34,12 +38,7 @@ export class RfArrayComponent implements OnInit {
       notification: 'Email',
       rating: [null, rangeValidator(1, 5)],
       sendCatalog: false,
-      addressType: 'Home',
-      street1: '',
-      street2: '',
-      city: '',
-      state: '',
-      zip: '',
+      addresses: this.fb.array([this.buildAddress()])
     });
 
     this.customerForm.get('notification').valueChanges.subscribe(
@@ -76,15 +75,32 @@ export class RfArrayComponent implements OnInit {
       notification: 'Text',
       rating: 5,
       sendCatalog: true,
-      addressType: 'Work',
-      street1: 'Av Reconquista 850',
-      street2: 'Cerca de Retiro',
-      city: 'CABA',
-      state: 'CA',
-      zip: '1064',
+      addresses: {
+        addressType: 'Work',
+        street1: 'Av Reconquista 850',
+        street2: 'Cerca de Retiro',
+        city: 'CABA',
+        state: 'CA',
+        zip: '1064'
+      }
     };
     this.setNotification('Text');
     this.customerForm.setValue(mockCustomer);
+  }
+
+  buildAddress(): FormGroup {
+    return this.fb.group({
+      addressType: 'Home',
+      street1: '',
+      street2: '',
+      city: '',
+      state: '',
+      zip: ''
+    });
+  }
+
+  addAddress() {
+    this.addresses.push(this.buildAddress());
   }
 
   patchMockData() {

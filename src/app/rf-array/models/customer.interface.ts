@@ -9,12 +9,14 @@ export interface CustomerI {
   notification: 'Email' | 'Text';
   sendCatalog: boolean;
   rating: number;
-  addressType?: 'Home' | 'Work' | 'Other';
-  street1?: string;
-  street2?: string;
-  city?: string;
-  state?: string;
-  zip?: string;
+  addresses: {
+    addressType?: 'Home' | 'Work' | 'Other';
+    street1?: string;
+    street2?: string;
+    city?: string;
+    state?: string;
+    zip?: string;
+  };
 }
 
 export const emptyCustomer = {
@@ -28,11 +30,13 @@ export const emptyCustomer = {
   notification: 'Email',
   sendCatalog: true,
   rating: null,
-  addressType: 'Home',
-  street1: '',
-  street2: '',
-  city: '',
-  state: '',
-  zip: '',
+  addresses: {
+    addressType: 'Home',
+    street1: '',
+    street2: '',
+    city: '',
+    state: '',
+    zip: ''
+  }
 };
 

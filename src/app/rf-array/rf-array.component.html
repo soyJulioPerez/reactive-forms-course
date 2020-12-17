@@ -141,77 +141,90 @@
         </div>
 
         <div *ngIf="customerForm.get('sendCatalog').value"> <!-- Address -->
-
-          <div class="form-group row mb-2"> <!-- Address type -->
-            <label class="col-md-3 form-col-label pt-0">Address Type</label>
-            <div class="col-md-9">
-              <div class="form-check form-check-inline">
-                <label class="form-check-label">
-                  <input class="form-check-input" type="radio" value="Home"
-                  formControlName="addressType">
-                  Home
-                </label>
+          <div formArrayName="addresses"
+            *ngFor="let address of addresses.controls; let i=index">
+            <div [formGroupName]="i">
+              <div class="form-group row mb-2"> <!-- Address type -->
+                <label class="col-md-3 form-col-label pt-0">Address Type</label>
+                <div class="col-md-9">
+                  <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" value="Home"
+                      formControlName="addressType">
+                      Home
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" value="Work"
+                      formControlName="addressType">
+                      Work
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" value="Other"
+                      formControlName="addressType">
+                      Other
+                    </label>
+                  </div>
+                </div>
               </div>
-              <div class="form-check form-check-inline">
-                <label class="form-check-label">
-                  <input class="form-check-input" type="radio" value="Work"
-                  formControlName="addressType">
-                  Work
-                </label>
+
+              <div class="form-group row mb-2"> <!-- Street 1 -->
+                <label class="col-md-3 col-form-label" attr.for="{{'street1Id' + i}}">Street Address 1</label>
+                <div class="col-md-9">
+                  <input class="form-control" type="text" placeholder="Street Address"
+                  formControlName="street1" id="{{'street1Id' + i}}">
+                </div>
               </div>
-              <div class="form-check form-check-inline">
-                <label class="form-check-label">
-                  <input class="form-check-input" type="radio" value="Other"
-                  formControlName="addressType">
-                  Other
-                </label>
+
+              <div class="form-group row mb-2"> <!-- Street 2 -->
+                <label class="col-md-3 col-form-label">Street Address 2</label>
+                <div class="col-md-9">
+                  <input class="form-control" type="text" placeholder="Street Address (second line)"
+                  formControlName="street2">
+                </div>
+              </div>
+
+              <div class="form-group row mb-2"> <!-- City, State, Zip code -->
+                <label class="col-md-3 col-form-label">City, State, Zip Code</label>
+
+                <div class="col-md-3">
+                  <input class="form-control" type="text" placeholder="city"
+                  formControlName="city">
+                </div>
+                <div class="col-md-3">
+                  <select class="form-control"
+                  formControlName="state">
+                    <option value="" disabled selected hidden>Select a State...</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                    <option value="WI">Wisconsin</option>
+                    <option value="WY">Wyoming</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <input class="form-control" type="number" placeholder="Zip Code"
+                  formControlName="zip">
+                </div>
               </div>
             </div>
+
           </div>
 
-          <div class="form-group row mb-2"> <!-- Street 1 -->
-            <label class="col-md-3 col-form-label">Street Address 1</label>
-            <div class="col-md-9">
-              <input class="form-control" type="text" placeholder="Street Address"
-              formControlName="street1">
+          <div class="row mb-2">
+            <div class="col-md-2 offset-5">
+              <button class="btn btn-block btn-outline-info" (click)="addAddress()"
+                [disabled]="!addresses.valid">
+                Add
+              </button>
             </div>
           </div>
-
-          <div class="form-group row mb-2"> <!-- Street 2 -->
-            <label class="col-md-3 col-form-label">Street Address 2</label>
-            <div class="col-md-9">
-              <input class="form-control" type="text" placeholder="Street Address (second line)"
-              formControlName="street2">
-            </div>
-          </div>
-
-          <div class="form-group row mb-2"> <!-- City, State, Zip code -->
-            <label class="col-md-3 col-form-label">City, State, Zip Code</label>
-
-            <div class="col-md-3">
-              <input class="form-control" type="text" placeholder="city"
-              formControlName="city">
-            </div>
-            <div class="col-md-3">
-              <select class="form-control"
-              formControlName="state">
-                <option value="" disabled selected hidden>Select a State...</option>
-                <option value="AL">Alabama</option>
-                <option value="AK">Alaska</option>
-                <option value="AZ">Arizona</option>
-                <option value="AR">Arkansas</option>
-                <option value="CA">California</option>
-                <option value="CO">Colorado</option>
-                <option value="WI">Wisconsin</option>
-                <option value="WY">Wyoming</option>
-              </select>
-            </div>
-            <div class="col-md-3">
-              <input class="form-control" type="number" placeholder="Zip Code"
-              formControlName="zip">
-            </div>
-          </div>
-
         </div>
 
         <div class="row mt-4">
@@ -257,7 +270,9 @@
           <p>Touched: {{customerForm.touched}}</p>
           <p>Valid: {{customerForm.valid}}</p>
           <!-- <pre>Errors: {{customerForm.get('emailGroup').errors | json}}</pre> -->
+          <p>Street 1:{{ addresses.get('0.street1')?.value}}</p>
           <pre>Value: {{customerForm.value | json}}</pre>
+
         </div>
       </div>
 
