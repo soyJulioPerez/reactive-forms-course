@@ -1,4 +1,4 @@
-# Demo-Start: These are the starter files for the Angular Reactive Forms demo form.
+# Reactive Forms Cours: Based on the Pluralsight Reactive Forms course by Deborah Kurata.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.2.
 

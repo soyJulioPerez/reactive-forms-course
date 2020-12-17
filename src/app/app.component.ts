@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styles: ['']
 })
 export class AppComponent {
-  title = 'Demo';
+  title = 'reactive-forms-course';
 }
